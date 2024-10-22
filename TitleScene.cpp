@@ -31,7 +31,7 @@ void TitleScene::Initialize()
 	InitRectPostion();
 
 	// ui
-	uiTexID_ = Novice::LoadTexture("titleUI.png");
+	uiTexID_ = Novice::LoadTexture("titleUI_white.png");
 
 	// 矩形の初期サイズを設定
 	width_ = originalWidth_;
@@ -110,14 +110,16 @@ void TitleScene::InitRectPostion()
 
 void TitleScene::UpdateRectPostition()
 {	
-	// 縮小と拡大の段階を設定
-	// // 縮小の持続時間
-	const float shrinkDuration = 10.0f;  
+	// 元のサイズと縮小と拡大の段階を設定<秒>
+	// 元のサイズを保持する時間
+	const float holdDuration = 3.0f;
+	// 縮小の持続時間
+	const float shrinkDuration = 8.0f;  
 	// 拡大の持続時間
-	const float expandDuration = 6.0f;  
+	const float expandDuration = 5.0f;  
 
 	// カウンターを進行度に変換（0から1の間）
-	float totalDuration = shrinkDuration + expandDuration;
+	float totalDuration = holdDuration + shrinkDuration + expandDuration;
 	float t = counter_ / totalDuration;
 
 	// アニメーションがループするようにリセット
@@ -128,20 +130,24 @@ void TitleScene::UpdateRectPostition()
 		t = 0.0f;
 	}
 
-	// 縮小と拡大のステージを決定
-	float scale;
-	if (t < (shrinkDuration / totalDuration)) {
-		// 縮小段階 (0からshrinkDurationの間)  
-		// 0から1に正規化
-		float shrinkT = t / (shrinkDuration / totalDuration); 
-		// 1から0に
-		scale = 1.0f - easeOutBounce(shrinkT); 
+	// スケールの変化を管理
+	float scale = 1.0f;
+
+	if (t < (holdDuration / totalDuration)) {
+		// 元のサイズを保持する段階 (0からholdDurationの間)
+		// 何もしないので scale は 1.0f のまま
+	} else if (t < (holdDuration + shrinkDuration) / totalDuration) {
+		// 縮小段階 (holdDurationからshrinkDurationの間)
+		// 進行度を0から1に正規化
+		float shrinkT = (t - (holdDuration / totalDuration)) / (shrinkDuration / totalDuration);
+		// 1から0に変化
+		scale = 1.0f - easeOutBounce(shrinkT);
 	} else {
 		// 拡大段階 (shrinkDurationからtotalDurationの間)
-		// 0から1に正規化
-		float expandT = (t - (shrinkDuration / totalDuration)) / (expandDuration / totalDuration); 
-		// 0から1に 
-		scale = easeOutBounce(expandT);  
+		// 進行度を0から1に正規化
+		float expandT = (t - (holdDuration + shrinkDuration) / totalDuration) / (expandDuration / totalDuration);
+		// 0から1に変化
+		scale = easeOutBounce(expandT);
 	}
 
 	// 新しい幅と高さを計算
