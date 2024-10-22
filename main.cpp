@@ -1,6 +1,4 @@
 #include <Novice.h>
-#include "ParticleSystem.h"
-#include "Particle.h"
 
 const char kWindowTitle[] = "LE2B_04_オザワ_ユウト";
 
@@ -9,12 +7,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
-
-	srand(static_cast<unsigned int>(time(0)));
-
-	ParticleSystem* particleSystem = nullptr;
-	particleSystem = new ParticleSystem();
-	particleSystem->Initialize();
 
 	// キー入力結果を受け取る箱
 	char keys[256] = { 0 };
@@ -33,8 +25,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		particleSystem->Update();
-
 		///
 		/// ↑更新処理ここまで
 		///
@@ -42,8 +32,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-
-		particleSystem->Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -57,8 +45,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		}
 	}
-
-	delete particleSystem;
 
 	// ライブラリの終了
 	Novice::Finalize();
