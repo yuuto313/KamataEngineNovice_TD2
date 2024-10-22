@@ -1,6 +1,9 @@
 #include <Novice.h>
+
 #include "ParticleSystem.h"
 #include "Particle.h"
+
+#include "TitleScene.h"
 
 const char kWindowTitle[] = "LE2B_04_オザワ_ユウト";
 
@@ -8,13 +11,17 @@ const char kWindowTitle[] = "LE2B_04_オザワ_ユウト";
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, 1200, 800);
 
 	srand(static_cast<unsigned int>(time(0)));
 
-	ParticleSystem* particleSystem = nullptr;
+	/*ParticleSystem* particleSystem = nullptr;
 	particleSystem = new ParticleSystem();
-	particleSystem->Initialize();
+	particleSystem->Initialize();*/
+
+	TitleScene* titleScene = nullptr;
+	titleScene = new TitleScene();
+	titleScene->Initialize();
 
 	// キー入力結果を受け取る箱
 	char keys[256] = { 0 };
@@ -33,7 +40,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		particleSystem->Update();
+		//particleSystem->Update();
+		titleScene->Update();
 
 		///
 		/// ↑更新処理ここまで
@@ -43,7 +51,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-		particleSystem->Draw();
+		//particleSystem->Draw();
+		titleScene->Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -58,7 +67,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 	}
 
-	delete particleSystem;
+	delete titleScene;
+	//delete particleSystem;
 
 	// ライブラリの終了
 	Novice::Finalize();
