@@ -10,8 +10,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
-	srand(static_cast<unsigned int>(time(0)));
-
 	ParticleSystem* particleSystem = nullptr;
 	particleSystem = new ParticleSystem();
 	particleSystem->Initialize();

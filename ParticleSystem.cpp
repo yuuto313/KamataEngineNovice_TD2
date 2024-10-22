@@ -3,6 +3,9 @@
 
 ParticleSystem::~ParticleSystem()
 {
+	// シード値を初期化
+	srand(static_cast<unsigned int>(time(0)));
+
 	for (Particle* particle : particles_) {
 		delete particle;
 	}

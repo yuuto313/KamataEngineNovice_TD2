@@ -13,11 +13,6 @@ public:
 	void Initialize();
 
 	/// <summary>
-	/// シード値を初期化
-	/// </summary>
-	void InitializeRandom();
-
-	/// <summary>
 	/// 更新
 	/// </summary>
 	void Update();

@@ -5,24 +5,27 @@
 
 void Particle::Initialize()
 {
+	// 描画する横幅
+	float minWid = 540.0f;
+	float maxWid = 740.0f;
+	
+	// 縦幅
+	float minHigh = 260.0f;
+	float maxhigh = 460.0f;
 
-	position_ = { 540.0f + static_cast<float>(rand()) / RAND_MAX * (740.0f - 540.0f), // x = 540 ~ 740
-	260.0f + static_cast<float>(rand()) / RAND_MAX * (460.0f - 260.0f) };
+	position_ = { minWid + static_cast<float>(rand()) / RAND_MAX * (maxWid - minWid), // x = 540 ~ 740
+	minHigh + static_cast<float>(rand()) / RAND_MAX * (maxhigh - minHigh) };// y = 260 ~ 460
 
+	// 色を設定
 	red_ = 0xFF;
 	green_ = 0xFF;
 	blue_ = 0xFF;
 	alpha_ = 0xFF;
 
+	// パーティクルの情報
 	radius_ = 5.0f;
-
 	isFinished_ = false;
 	counter_ = 0.0f;
-}
-
-void Particle::InitializeRandom()
-{
-	srand(static_cast<unsigned int>(time(0)));
 }
 
 void Particle::Update()
@@ -54,10 +57,12 @@ void Particle::Update()
 	float speed = 100.0f * (1.0f / 60.0f);
 
 	float length = sqrtf(direction.x * direction.x + direction.y * direction.y);
+
 	if (length > 0.001f) {
 		direction.x /= length;
 		direction.y /= length;
 	}
+
 	position_.x += direction.x * speed;
 	position_.y += direction.y * speed;
 
