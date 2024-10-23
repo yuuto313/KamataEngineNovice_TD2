@@ -10,14 +10,23 @@ enum class Difficulty : uint32_t{
 	Hard,
 };
 
-struct MidTexData
+struct TexData
 {
 	int x1;
 	int y1;
 	int x2;
 	int y2;
 
-	Vector2 size = { 128.0f,128.0f };
+	// 以前の座標を保存するための変数
+	int prevX1;
+	int prevY1;
+	int prevX2;
+	int prevY2;
+
+	int width;
+	int height;
+	
+	float scale;
 
 	uint32_t texID;
 };
@@ -46,19 +55,42 @@ private:
 	//　難易度（初期はイージー）
 	Difficulty difficulty_ = Difficulty::Easy;
 
-	MidTexData midTexdata_;
+	// left = Easy
+	TexData leftTexData_;
 
+	// mid = Normal
+	TexData midTexData_;
+
+	// right = Hard
+	TexData rightTexData_;
+
+
+	// Animation variables
+	bool scalingUp_ = true;          // Scaling direction
+	float scaleAnimationSpeed_ = 0.01f; // Speed of scaling animation
+	const float minScale_ = 0.8f;     // Minimum scale factor
+	const float maxScale_ = 1.2f;            // Scaling direction
 private:
 	// メンバ関数
 
 	/// <summary>
-	/// 中央のテクスチャ情報を初期化
+	/// テクスチャ情報を初期化
 	/// </summary>
-	void InitMidTexData();
+	void InitTexData(TexData& texData,const char* fileName,int width,int height);
+
+	/// <summary>
+	/// テクスチャ情報を更新
+	/// </summary>
+	void UpdateTexData(TexData& texData);
 
 	/// <summary>
 	/// カウンタを調整
 	/// </summary>
 	void UpdateDifficultyCounter();
+
+	/// <summary>
+	/// テクスチャ情報をリセット
+	/// </summary>
+	void ResetTexData(TexData& texData);
 };
 
