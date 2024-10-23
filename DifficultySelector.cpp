@@ -5,8 +5,10 @@ void DifficultySelector::Initialize()
 {
 	counter_ = 1;
 
-	// 中央のテクスチャデータ
-	midTexdata_.texID = Novice::LoadTexture("select_easy.png");
+	InitMidTexData();
+
+
+
 
 }
 
@@ -107,8 +109,36 @@ void DifficultySelector::Draw()
 
 }
 
-void DifficultySelector::InitMidTexturePosition()
+void DifficultySelector::InitMidTexData()
 {
+	//--------------------------------
+	// 座標を計算
+	//--------------------------------
+
+	// ゲーム画面サイズ
+	int gameWid = 1200;
+	int gameHeight = 800;
+
+	// 中心座標
+	int centerX = gameWid / 2;
+	int centerY = gameHeight / 2;
+
+	// 4頂点計算
+	midTexdata_.x1 = centerX - midTexdata_.size.x / 2;
+	midTexdata_.y1 = centerY - midTexdata_.size.y / 2;
+	midTexdata_.x2 = centerX + midTexdata_.size.x / 2;
+	midTexdata_.y2 = centerY + midTexdata_.size.y / 2;
+
+	// y座標だけ調整
+	int offsetY = 200;
+	midTexdata_.y1 = midTexdata_.y1 - offsetY;
+	midTexdata_.y2 = midTexdata_.y2 - offsetY;
+
+	//--------------------------------
+	// textureを読み込む
+	//--------------------------------
+
+	midTexdata_.texID = Novice::LoadTexture("select_normal.png");
 
 }
 

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <cmath>
 #include <Novice.h>
+#include "Vector2.h"
 
 enum class Difficulty : uint32_t{
 	None,
@@ -15,6 +16,8 @@ struct MidTexData
 	int y1;
 	int x2;
 	int y2;
+
+	Vector2 size = { 128.0f,128.0f };
 
 	uint32_t texID;
 };
@@ -49,9 +52,9 @@ private:
 	// メンバ関数
 
 	/// <summary>
-	/// 中央のテクスチャの位置を設定
+	/// 中央のテクスチャ情報を初期化
 	/// </summary>
-	void InitMidTexturePosition();
+	void InitMidTexData();
 
 	/// <summary>
 	/// カウンタを調整
