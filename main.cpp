@@ -1,6 +1,5 @@
 #include <Novice.h>
-#include "ParticleSystem.h"
-#include "Particle.h"
+#include "DifficultySelector.h"
 
 const char kWindowTitle[] = "LE2B_04_オザワ_ユウト";
 
@@ -8,11 +7,11 @@ const char kWindowTitle[] = "LE2B_04_オザワ_ユウト";
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, 1200, 800);
 
-	ParticleSystem* particleSystem = nullptr;
-	particleSystem = new ParticleSystem();
-	particleSystem->Initialize();
+	DifficultySelector* pDifficultySelector = nullptr;
+	pDifficultySelector = new DifficultySelector();
+	pDifficultySelector->Initialize();
 
 	// キー入力結果を受け取る箱
 	char keys[256] = { 0 };
@@ -31,7 +30,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		particleSystem->Update();
+		pDifficultySelector->Update();
 
 		///
 		/// ↑更新処理ここまで
@@ -40,8 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-
-		particleSystem->Draw();
+		pDifficultySelector->Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -56,7 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 	}
 
-	delete particleSystem;
+	delete pDifficultySelector;
 
 	// ライブラリの終了
 	Novice::Finalize();
