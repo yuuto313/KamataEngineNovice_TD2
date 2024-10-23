@@ -65,11 +65,15 @@ private:
 	TexData rightTexData_;
 
 
-	// Animation variables
-	bool scalingUp_ = true;          // Scaling direction
-	float scaleAnimationSpeed_ = 0.01f; // Speed of scaling animation
-	const float minScale_ = 0.8f;     // Minimum scale factor
-	const float maxScale_ = 1.2f;            // Scaling direction
+	// スケーリングの可不可
+	bool scalingUp_ = true; 
+	// スケーリングするスピード
+	float scaleAnimationSpeed_ = 0.01f; 
+	// Speed of scaling animation
+	// スケール最小
+	const float minScale_ = 0.8f;    
+	// スケール最大
+	const float maxScale_ = 1.2f;       
 private:
 	// メンバ関数
 
